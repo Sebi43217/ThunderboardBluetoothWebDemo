@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Thunderboard Demo</title>
+		<link rel="stylesheet" href="IO.css">
+		<link rel="stylesheet" href="./main.css" />
+		<script src="EasyBluetoothWeb.js"></script>
+		<script src="index.js"></script>
+		<!-- Import maps polyfill -->
+		<!-- Remove this when import maps will be widely supported -->
+		<script async src="./3D/utils/es-module-shims.js"></script>
+		<script type="importmap">
+		{
+			"imports": {
+			"three": "/build/three.module.js",
+			"three/examples/jsm/controls/OrbitControls": "/jsm/controls/OrbitControls.js",
+			"three/examples/jsm/loaders/FBXLoader": "/jsm/loaders/FBXLoader.js",
+			"three/examples/jsm/libs/stats.module": "/jsm/libs/stats.module.js"
+			}
+		}
+		</script>
+    </head>
+  	<body>
+		<script type="module" src="3Dmodule.js"></script>
+
+		<div style="position: relative; margin: 10px; border:1px solid rgb(0, 0, 0); width:1330px; height: auto; background-color: #0d00c5;">
+			<a href="index.html"><h3 style="display: inline-block;margin: 10px; text-decoration: underline; color: #ffffff;">Thunderboard Demo</h3></a>
+			<a href="gattTable.html"><h3 style="display: inline-block;margin: 10px; color: #ffffff;">GATT-Access-Tool</h3></a>
+			<a href="update.html"><h3 style="display: inline-block;margin: 10px; color: #ffffff;">Update-Tool</h3></a>
+		</div>
+
+		<div style="position: relative; width:450px; height: 698px;">
+			<div style="display: inline-block; position: absolute; top: -10px; left: 0px; width:400px; height: auto;">
+				<div style="border:1px solid rgb(0, 0, 0); width:430px; height: auto; margin: 10px; background-color: #0082fc;">
+					<h3 style="margin: 10px; color: #ffffff;">Bluetooth Connection</h3>
+					<div style="border:1px solid rgb(0, 0, 0);width:408px;height: auto; position: relative; margin: 10px; background-color: #ffffff;">
+						<div>
+							<button onclick="StartConnection()" style="margin: 10px;">Connect to Device</button>
+							<button onclick="StopConnection()" style="margin: 10px;">Disconnect Device</button>
+						</div>
+					</div>
+				</div>
+				<div style="border:1px solid rgb(0, 0, 0); width:430px; height: auto; margin: 10px; background-color: #c4c4c4;">
+					<h3 style="margin: 10px;">Environment Sensor</h3>
+					<div style="border:1px solid rgb(0, 0, 0);width:408px;height: auto; position: relative; margin: 10px; background-color: #ffffff;">
+						<div style="margin: 10px;">
+							<button onclick="measureEnvironment()">Measure Environment Data</button>
+						</div>
+						<div style="margin: 10px;">
+							<table>
+								<tr>
+									<td style="width: 120px; font-weight: bold;">Device Name:</td>
+									<td style="width: 200px;"><span id="device.name"> !no Device!</span><br></td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">UV Index:</td>
+									<td><span id="sens.uvIndex">0</span><br></td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Ambient Light:</td>
+									<td><span id="sens.ambLight"> 0 Lux</span><br></td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Temperature:</td>
+									<td><span id="sens.temperature"> 0 °C</span><br></td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">Humidity:</td>
+									<td><span id="sens.humidity"> 0 %</span><br></td>
+								</tr>
+							</table>
+						</div>     
+					</div>
+				</div>
+				<div style="border:1px solid rgb(0, 0, 0); width:430px; height: auto; margin: 10px; position: relative; top: 0px; left: 0px; background-color: #c4c4c4;">
+					<h3 style="margin: 10px;">Digital IO</h3>
+					<div style="border:1px solid rgb(0, 0, 0);width:408px;height: 224px; position: relative; margin: 10px; background-color: #ffffff;">
+						<div style="position: relative; top: 10px;">
+							<h4 style="margin: 10px;">Input</h4>
+							<div style="border:1px solid rgb(0, 0, 0);width:auto;height: auto; position: relative; margin: 10px; top: 10px;">
+								<span style="display: inline-block; margin: 10px; font-weight: bold;">Button</span>
+								<div id="LED1" style="position: absolute; top: -3px; left: 80px; display: inline-block; margin: 10px;">
+									<div class="led-red-off"></div>
+								</div>
+							</div>
+						</div>
+						<div style="position: relative; top: 30px;">
+							<h4 style="margin: 10px;">Output</h4>
+							<div style="border:1px solid rgb(0, 0, 0);width:auto;height: auto; position: relative; margin: 10px; top: 10px;">
+								<span style="display: inline-block; margin: 10px; font-weight: bold;">LED</span>
+								<div id="LED2" style="position: absolute; top: -3px; left: 80px; display: inline-block; margin: 10px;">
+									<div class="led-red-off"></div>
+								</div>
+								<div class="umschalter" style="height: 24px; width: 48px; position: absolute; top: 7px; left: 160px;">
+									<input type="checkbox" name="switch1" id="switch1">
+									<div class="umschalter-knopf" style="height: 20px; width: 20px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="display: inline-block; position: absolute; top: 20px; left: 450px; top: 0px; width:450px; height: 698px;">
+				<div style="border:1px solid rgb(0, 0, 0); height: 698px;">
+					<div>
+						<h1 style="margin: 10px; text-align: center;">Thunderboard Demo</h1>
+					</div>
+					<div style=" margin: 10px">
+						<p style="text-align: center;">
+						On this website you can use a Bluetooth-Client demonstration for the Silicon Labs Thunderboard type:SLTB010A. <br> <br>
+						This has been created with a custom Bluetooth library using the Web Bluetooth API.
+						The website supports the same functions as the Thunderboard smartphone app.
+						The 3D animation is created with the THREE 3D javascript library.
+						</p>
+					</div>
+					<div style="position: relative; top: -30px;">
+						<div id="LED4" style="position: relative; top: 210px; left: 224px; display: inline-block; margin: 10px;">
+							<div class="led-orange-off"></div>
+						</div>
+						<div style="margin: 10px;">
+							<img src="Thunderboard.jpg" width="435px">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div style="display: inline-block; position: absolute; top: -10px; left: 900px; width:450px; height: auto;">
+				<div style="border:1px solid rgb(0, 0, 0); width:430px; height: auto; margin: 10px; position: relative; top: 0px; left: 0px; background-color: #c4c4c4;">
+					<h3 style="margin: 10px;">Hall Sensor</h3>
+					<div style="border:1px solid rgb(0, 0, 0);width:408px;height: 50px; position: relative; margin: 10px; background-color: #ffffff;">
+						<div id="LED3" style="display: inline-block; margin: 10px; position: absolute; top: 2px; left: 0px;">
+							<div class="led-red-off"></div>
+						</div>
+						<div style="display: inline-block; height: 20px; width: 100px; position: absolute; top: 17px; left: 40px;" >
+							<span id="mag.strength" style="margin: 10px;">0 mT</span>
+						</div>
+						<div style="display: inline-block; height: 20px; width: 140px; position: absolute; top: 17px; left: 140px;">
+							<span id="mag.status" style="margin: 10px;">Status: OK</span>
+						</div>
+						<div style="display: inline-block; height: 20px; width: 100px; position: absolute; top: 15px; left: 300px;">
+							<button onclick="resetMagSens()">Reset</button>
+						</div>
+					</div>
+				</div>
+				<div style="border:1px solid rgb(0, 0, 0); width:430px; height: auto; margin: 10px; background-color: #c4c4c4;">
+					<h3 style="margin: 10px;">6-axis Inertial Sensor</h3>
+					<div style="border:1px solid rgb(0, 0, 0);width:408px;height: auto; position: relative; margin: 10px; background-color: #ffffff;">
+						<div style="margin: 10px;">
+							<button onclick="startSens()">Start Sensor</button>
+							<button onclick="stoppSens()">Stopp Sensor</button>
+						</div>
+						<div style="margin: 10px;">
+							<table width=100%>
+								<tr>
+									<td style="font-weight: bold;">X-Rotation</td>
+									<td style="font-weight: bold;">Y-Rotation</td>
+									<td style="font-weight: bold;">Z-Rotation</td>
+								</tr>
+								<tr>
+									<td ><span id="sens.x">0.0 °</span><br></td>
+									<td ><span id="sens.y">0.0 °</span><br></td>
+									<td ><span id="sens.z">0.0 °</span><br></td>
+								</tr>
+							</table>
+						</div>
+						<div>
+							<div id="container" class="container" style="border:1px solid rgb(0, 0, 0);width:386px;height:386px; position: relative; margin: 10px;">
+								<div class="comp containerA" style="position: absolute">
+									<progress value="0" max="100" id="progressBar"></progress>
+										<div id="instructions" style="position: absolute">
+											3D Sensor Orientation
+										</div>
+									<canvas id="canvas1" class="canvas1"></canvas>
+								</div>	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+  	<footer>
+    	Bluetooth Web showcase by Sebastian Dold, last updated 07.11.2022
+  	</footer>
+</html>

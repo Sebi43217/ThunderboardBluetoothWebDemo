@@ -1,0 +1,72 @@
+.led-red-off {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-color: rgb(54, 0, 0);
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0) 0 2px 12px;
+}
+.led-red-on {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background-color: #F00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #441313 0 -1px 9px, rgba(255, 0, 0, 0.7) 0 2px 12px;
+}
+
+.led-orange-off {
+  width: 8px;
+  height: 4px;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0) 0 -1px 7px 1px, inset #ffffff00 0 -1px 9px, rgba(255, 0, 0, 0) 0 2px 12px;
+}
+.led-orange-on {
+  width: 8px;
+  height: 4px;
+  display: inline-block;
+  background-color: rgb(255, 123, 0);
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 -1px 7px 1px, inset #ffc813 0 -1px 9px 10px, rgba(255, 118, 55, 0.842) 0px 2px 15px 20px;
+}
+
+.umschalter input {
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #bbbbbb;
+  margin: 0;
+  border-radius: 0.5em/50%;
+}
+
+.umschalter {
+  height: 1em;
+  width: 1.8em;
+  display: inline-block;
+  position: relative;
+}
+
+.umschalter-knopf {
+  background-color: #bbbbbb;
+  width: 0.7em;
+  height: 0.7em;
+  box-shadow: 0 0 1px #333333;
+  position: absolute;
+  top: 0.15em;
+  left: 0.15em;
+  pointer-events: none;
+  transition: transform 0.5s ease-in-out;
+  border-radius: 50%;
+}
+
+.umschalter input:checked {
+  background-color: hsl(216, 98%, 52%);
+  border-color: hsl(216, 98%, 42%);
+}
+
+.umschalter input:checked + .umschalter-knopf {
+  background-color: white;
+  transform: translateX(1.5em);
+}

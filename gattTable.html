@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>GATT-Access Tool</title>
+      <link rel="stylesheet" href="./main.css" />
+      <script src="EasyBluetoothWeb.js"></script>
+      <script type="text/javascript">
+        //var additionalServices = [];
+        //var additionalFilters = []
+        function init() {
+          initBluetoothLib("gatt_configuration.xml", null, null);
+          printGATT("GattTable");
+          showConsole("consoleID")
+        }
+        window.onload = init();
+      </script>
+  </head>
+  <body>
+    <div style="position: relative; margin: 10px; border:1px solid rgb(0, 0, 0); width:1330px; height: auto; background-color: #0d00c5;">
+      <a href="index.html"><h3 style="display: inline-block;margin: 10px; color: #ffffff;">Thunderboard Demo</h3></a>
+      <a href="gattTable.html"><h3 style="display: inline-block;margin: 10px; text-decoration: underline;  color: #ffffff;">GATT-Access-Tool</h3></a>
+      <a href="update.html"><h3 style="display: inline-block;margin: 10px;  color: #ffffff;">Update-Tool</h3></a>
+    </div>
+
+    <div style="margin: 10px;">
+      <h3>GATT</h3> 
+      <p id="GattTable"></p>
+  
+      <div>
+        <button onclick="Connect()">Connect to Device</button>
+        <button onclick="Disconnect()">Disconnect Device</button>
+      </div>
+  
+      <h3>Console:</h3>
+      <div id="consoleID"></div>
+    </div>
+  </body>
+  <footer>
+    Bluetooth Web showcase by Sebastian Dold, last updated 07.11.2022
+  </footer>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Update-Tool</title>
+      <link rel="stylesheet" href="./main.css" />
+      <script src="EasyBluetoothWeb.js"></script>
+      <script src="update.js"></script>
+  </head>
+  <body>
+    <div style="position: relative; margin: 10px; border:1px solid rgb(0, 0, 0); width:1330px; height: auto; background-color: #0d00c5;">
+      <a href="index.html"><h3 style="display: inline-block;margin: 10px;  color: #ffffff;">Thunderboard Demo</h3></a>
+      <a href="gattTable.html"><h3 style="display: inline-block;margin: 10px;  color: #ffffff;">GATT-Access-Tool</h3></a>
+      <a href="update.html"><h3 style="display: inline-block;margin: 10px; text-decoration: underline;  color: #ffffff;">Update-Tool</h3></a>
+    </div>
+
+    <div style="margin: 10px;">
+      <h3>Controls</h3>
+      <div>
+        <div>
+          1. 
+          <button onclick="setUpdateMode()">Set Device to OTA-Mode</button>
+        </div>
+        <div>
+          2. 
+          <button onclick="connectOTADevice()">Connect to OTA Device</button>
+        </div>
+        <div>
+          3. 
+          <input type="file" id="files" name="file" style="width: 500px;"/>
+        </div>
+        <div>
+          4. 
+            <button onclick="updateOta()">Update</button>
+        </div>
+      </div> 
+
+      <h3>Device information</h3>
+      <table>
+        <tr>
+          <td>Device Name:</td>
+          <td style="width: 200px;"><span id="device.name"></span><br></td>
+        </tr>
+        <tr>
+          <td>AppLoder version:</td>
+          <td><span id="device.appLoadVer"></span><br></td>
+        </tr>
+        <tr>
+          <td>OTA version:</td>
+          <td><span id="device.otaVer"></span><br></td>
+        </tr>
+        <tr>
+          <td>Gecko Bootloader version:</td>
+          <td><span id="device.gekoVer"></span><br></td>
+        </tr>
+        <tr>
+          <td>Application version:</td>
+          <td><span id="device.appVer"></span><br></td>
+        </tr>
+      </table>
+
+
+
+      <h3>Console</h3>
+      <div id="consoleID"></div>
+    </div>
+  </body>
+  <footer>
+    Bluetooth Web showcase by Sebastian Dold, last updated 07.11.2022
+  </footer>
+</html>
